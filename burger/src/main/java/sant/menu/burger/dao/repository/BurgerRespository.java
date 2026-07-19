@@ -6,5 +6,5 @@ import sant.menu.burger.dao.model.Emp;
 
 
 public interface BurgerRespository extends CrudRepository<Emp, Integer> {
-	Emp findByCustomerId(Integer customerId); 
+	Emp findByEmpId(Integer empId);
 }

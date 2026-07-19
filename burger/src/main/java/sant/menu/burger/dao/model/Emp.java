@@ -12,18 +12,18 @@ import jakarta.persistence.Table;
 public class Emp {
 	
 	@Id
-	@Column(name="CUSTOMER_ID")
-	private Integer customerId;
+	@Column(name="EMP_ID")
+	private Integer empId;
 	
 	@Column
 	private String name;
 
 	public Integer getCustomerId() {
-		return customerId;
+		return empId;
 	}
 
-	public void setCustomerId(Integer customerId) {
-		this.customerId = customerId;
+	public void setCustomerId(Integer empId) {
+		this.empId = empId;
 	}
 
 	public String getName() {
@@ -36,7 +36,7 @@ public class Emp {
 
 	@Override
 	public String toString() {
-		return "Emp [customerId=" + customerId + ", name=" + name + "]";
+		return "Emp [emp=" + empId + ", name=" + name + "]";
 	}
 	
 }

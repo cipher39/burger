@@ -1,6 +1,6 @@
 package sant.menu.burger.service;
 
-import java.util.Optional;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,11 +18,24 @@ public class BurgerService {
 	@Autowired
 	private BurgerRespository repo;
 	
-	public String getCust(Integer id) {
-		LOGGER.info("IN BurgerService.getCust() with id= {}", id);
-		String customerName = repo.findByCustomerId(id).getName();
-		LOGGER.info("OUT BurgerService.getCust() with customerName= {}", customerName);
-		return customerName;
+	public Emp getEmployee(Integer id) {
+		LOGGER.info("IN BurgerService.getEmployee() with id= {}", id);
+		Emp customer = repo.findByEmpId(id);
+		LOGGER.info("OUT BurgerService.getEmployee() with customer= {}", customer);
+		return customer;
+	}
+	
+	public boolean addEmployee(Emp emp) {
+		LOGGER.info("IN BurgerService.addEmployee() with emp={}", emp);
+		boolean resp = false;
+		try {
+			repo.save(emp);
+			resp = true;
+		}catch(Exception e){
+			LOGGER.error(e.getMessage(), e);
+		}
+		LOGGER.info("OUT BurgerService.addEmployee() with resp= {}", resp);
+		return resp;
 	}
 
 }
