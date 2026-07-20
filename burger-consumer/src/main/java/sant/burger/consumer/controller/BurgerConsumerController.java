@@ -4,10 +4,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import sant.burger.consumer.dao.model.Emp;
+import sant.burger.consumer.dao.model.EmpDTO;
 import sant.burger.consumer.service.BurgerConsumerService;
 
 @RestController
@@ -28,17 +30,17 @@ public class BurgerConsumerController {
 	}
 	
 	@RequestMapping(value="/emp/{id}")
-	public Emp getEmployee(@PathVariable Integer id) {
-		Emp e = consumerService.getEmployee(id);
+	public EmpDTO getEmployee(@PathVariable Integer id) {
+		EmpDTO e = consumerService.getEmployee(id);
 		return e;
 	}
 	
-	public void addEmployee() {
-		Emp emp = new Emp();
-		emp.setCustomerId(1234);
-		emp.setName("jack");
-		LOGGER.info("adding a new customer with Emp = {}", emp);
-		LOGGER.info("status after SAVING: {}", consumerService.addEmployee(emp));		
+	@PostMapping(value="/addemployees")
+	public boolean addEmployee(@RequestBody EmpDTO emp) {
+		LOGGER.info("adding a new customer with EmpDTO = {}", emp);
+		boolean response = consumerService.addEmployee(emp);
+		LOGGER.info("status after SAVING: {}", response);
+		return response;
 	}
 	
 	

@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import sant.burger.consumer.dao.model.Emp;
+import sant.burger.consumer.dao.model.EmpDTO;
 
 @Service
 public class BurgerConsumerService {
@@ -22,35 +22,45 @@ public class BurgerConsumerService {
 	RestTemplate restTemplate;
 	
 	public String getName(Integer id) {
-		String uri = "http://localhost:8080/burger/emp/name/" + id;
+		String uri = "http://localhost:8080/burger/EmpDTO/name/" + id;
 		LOGGER.info("calling uri: {}", uri);
-		HttpHeaders httpHeaders = new HttpHeaders();
+		String name = "";
 		
-		HttpEntity<String> entity = new HttpEntity<String>(httpHeaders);
+//		Method 1:
+//		HttpHeaders httpHeaders = new HttpHeaders();
+//		HttpEntity<String> entity = new HttpEntity<String>(httpHeaders);
+//		ResponseEntity<String> resp = restTemplate.exchange(uri, HttpMethod.GET, entity, String.class);
+//		name = resp.getBody();
 		
-		ResponseEntity<String> resp = restTemplate.exchange(uri, HttpMethod.GET, entity, String.class);
-		String name = resp.getBody();
+//		Method 2: .getForEntity for GET, .postForEntity for POST
+		name = restTemplate.getForEntity(uri, String.class).getBody();
+		
 		LOGGER.info("Exiting BurgerConsumerService.getName() name={}", name);
 		return name;
 	}
 	
-	public Emp getEmployee(Integer id) {
+	public EmpDTO getEmployee(Integer id) {
 		String uri = "http://localhost:8080/burger/emp?id=" + id;
 		LOGGER.info("calling uri: {}", uri);
 		HttpHeaders httpHeaders = new HttpHeaders();
-		HttpEntity<Emp> entity = new HttpEntity<Emp>(httpHeaders);
-		ResponseEntity<Emp> resp = restTemplate.exchange(uri, HttpMethod.GET, entity, Emp.class);
-		Emp emp =  resp.getBody();
-		LOGGER.info("Exiting BurgerConsumerService.getEmployee() emp={}", emp);
+		HttpEntity<EmpDTO> entity = new HttpEntity<EmpDTO>(httpHeaders);
+		ResponseEntity<EmpDTO> resp = restTemplate.exchange(uri, HttpMethod.GET, entity, EmpDTO.class);
+		EmpDTO emp =  resp.getBody();
+		LOGGER.info("Exiting BurgerConsumerService.getEmployee() EmpDTO={}", emp);
 		return emp;
 	}
 	
-	public boolean addEmployee(Emp emp) {
-		String uri = "http://localhost:8080/burger/addemployees";
-		LOGGER.info("calling uri: {}", uri);
+	public boolean addEmployee(EmpDTO emp) {
+		String uri = "http://localhost:8080/burger/addemployee";
+		LOGGER.info("calling uri: {}\t EmpDTO: {}", uri, emp);
 		
-		HttpEntity<Emp> entity = new HttpEntity<Emp>(emp, new HttpHeaders());
-		ResponseEntity<Boolean> resp = restTemplate.exchange(uri, HttpMethod.POST, entity, Boolean.class);
+//		Method 1:
+//		HttpEntity<EmpDTO> entity = new HttpEntity<EmpDTO>(EmpDTO, new HttpHeaders());
+//		ResponseEntity<Boolean> resp = restTemplate.exchange(uri, HttpMethod.POST, entity, Boolean.class);
+		
+//		Method 2:
+		LOGGER.info("calling restTemplate.postForEntity()");
+		ResponseEntity<Boolean> resp = restTemplate.postForEntity(uri, emp, Boolean.class);
 		
 		return resp.getBody();
 	}

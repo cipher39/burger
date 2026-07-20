@@ -22,7 +22,22 @@ And hence BAD_REQUEST in Postman. So,
 **org.slf4j is provided by Spring itself**
 **Use jakarta.persistence for Spring> 2.7, javax.persistence is used for Spring <= 2.7. Otherwise, it will give an error creating a bean**
 
+**Swagger UI is a REST API documentation tool**
+**burger REST API Endpoints**
+http://localhost:8080/burger/addemployee
+input: below JSON               output: boolean 
+{
+    "empId" : 1001,
+    "name" : "Sam B",
+    "email" : "samb@email.com"
+}
+
+
 # berger-consumer
 It displays the use of **RestTemplate** to call a REST API in spring boot aplication
+**burger-consumer REST API Endpoints**
+http://localhost:8090/burger-consumer/emp/1002            returns Employee details in JSON
+
+
 
 
