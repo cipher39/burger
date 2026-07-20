@@ -25,7 +25,8 @@ And hence BAD_REQUEST in Postman. So,
 **Swagger UI is a REST API documentation tool**
 **burger REST API Endpoints**
 http://localhost:8080/burger/addemployee
-input: below JSON               output: boolean 
+input: below JSON               output: boolean
+
 {
     "empId" : 1001,
     "name" : "Sam B",
